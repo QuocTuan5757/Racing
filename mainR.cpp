@@ -11,33 +11,45 @@ struct Point{
 struct Car{
     int score;
     Point pos;
-    int car[9];
+    Point car[7];
     int direct;
+    int lenght;
 };
 void initCar(Car*c, int width, int height){
+
+    c->lenght = 7;
     c->score = 0;
-    c->pos.x = 12;
-    c->pos.y = 11;
-    c->car[0].x = x;
-    c->car[0].y = y;
-    c->car[1].x = x-1;
-    c->car[1].y = y;
-    c->car[2].x = x+1;
-    c->car[2].y = y;
-    c->car[3].x = x-1;
-    c->car[3].y = y+2;
-    c->car[4].x = x+1;
-    c->car[4].y = y+2;
+    c->pos.x = 10;
+    c->pos.y = 12;
+    int x = c->pos.x;
+    int y = c->pos.y;
+    c->car[0] = {x, y};
+    c->car[1] = {x-1, y};
+    c->car[2] = {x+1,y};
+    c->car[3] ={x-1,y-2};
+    c->car[4] = {x+1, y-2};
+    c->car[5] = {x, y-1};
+    c->car[6] = {x, y-2};
+    
     c->direct = 'w';
 }
 string check( int width, int height, int i, int j, Car*c){
     if (i == 0 || i == height - 1 || j == 0 || j == 4|| j == 8|| j == 12||j==16|| j == width - 1) {
         return "+ ";
     }
-    if(c->car[0].x == j && c->car[0].y == i){
-        
+    for( int k = 0; k < c->lenght; k++){
+        if(c->car[k].x == j && c->car[k].y == i){
+            if(k == 6){
+                return "A ";
+            }
+            if(k==1 || k == 2 || k==3 || k==4 ){
+                return "0 ";
+            }
+            if(k == 5||k == 0){
+                return "H ";
+            }
+        }
     }
-
     return "  ";
 }
 void border(int width, int height, Car*c){
@@ -54,6 +66,8 @@ void border(int width, int height, Car*c){
 int main(){
     int width = 21;
     int height = 14;
-    Car c;   
+    Car c;
+    initCar(&c, width, height);   
     border(width, height, &c);
+    
 }
